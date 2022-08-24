@@ -20,7 +20,7 @@ const App = () => {
     try {
 
       if (userLocation != "") {
-        const res = await fetch(`${VITE_API_URL}${userLocation}&appid=${VITE_WATHER_KEY}&units=metric`)
+        const res = await fetch(`${import.meta.env.VITE_API_URL}${userLocation}&appid=${import.meta.env.VITE_WATHER_KEY}&units=metric`)
         const data = await res.json();
 
         SetTemp(data.main.temp)
