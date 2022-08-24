@@ -1,0 +1,25 @@
+name: Deploy to GitHub Pages
+    on:
+      push:
+        branches:
+          - master
+    jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Install and Build 🔧
+        run: |
+          npm install
+          npm run-script build
+        env:
+          VITE_WATHER_KEY: ${{ secrets.VITE_WATHER_KEY }}
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          branch: gh-pages
+          folder: dist # The folder the action should deploy.
